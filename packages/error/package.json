@@ -1,0 +1,7 @@
+{
+  "name": "@termux-bridge/error",
+  "version": "1.1.0",
+  "exports": {
+    ".": "./index.ts"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "name": "termux-bridge",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "rspack build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.34.5",
+  "devDependencies": {
+    "@rspack/cli": "^2.2.1",
+    "@rspack/core": "^2.2.1",
+    "@types/node": "^26.4.0",
+    "env-paths": "^4.0.0",
+    "neverthrow": "^8.2.0",
+    "typescript": "^7.0.2",
+    "winston": "^3.19.0",
+    "zod": "^4.5.2"
+  }
+}
