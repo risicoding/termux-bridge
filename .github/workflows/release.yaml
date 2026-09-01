@@ -1,0 +1,101 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "core-v*"
+      - "server-v*"
+      - "api-v*"
+
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. core-v1.2.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine package
+        run: |
+          case "$RELEASE_TAG" in
+            core-v*)
+              echo "PACKAGE=core" >> "$GITHUB_ENV"
+              ;;
+            server-v*)
+              echo "PACKAGE=server" >> "$GITHUB_ENV"
+              ;;
+            api-v*)
+              echo "PACKAGE=api" >> "$GITHUB_ENV"
+              ;;
+            *)
+              echo "Invalid release tag: $RELEASE_TAG"
+              exit 1
+              ;;
+          esac
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify version
+        run: |
+          VERSION="${RELEASE_TAG#*-v}"
+          PACKAGE_VERSION=$(node -p "require('./packages/$PACKAGE/package.json').version")
+
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+          if [ "$PACKAGE_VERSION" != "$VERSION" ]; then
+            echo "Version mismatch:"
+            echo "  Tag:          $VERSION"
+            echo "  package.json: $PACKAGE_VERSION"
+            exit 1
+          fi
+
+      - name: Test
+        run: pnpm --filter "@termux-bridge/$PACKAGE" test
+
+      - name: Build
+        run: pnpm --filter "@termux-bridge/$PACKAGE" build
+
+      - name: Pack
+        run: |
+          pnpm --filter "@termux-bridge/$PACKAGE" pack --pack-destination ./release
+
+      - name: Show package
+        run: |
+          ls -lh release/
+          tar -tzf release/*.tgz
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$RELEASE_TAG" \
+            release/*.tgz \
+            --title "@termux-bridge/$PACKAGE v$VERSION" \
+            --generate-notes
