@@ -1,5 +1,5 @@
 import { Result, ResultAsync } from "neverthrow";
-import { z } from "zod";
+import z from "zod";
 import { AppError } from "@termux-bridge/error";
 import { execFileAsync } from "@/lib/utils";
 

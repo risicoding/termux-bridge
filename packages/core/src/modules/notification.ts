@@ -1,6 +1,6 @@
 import { Result, ResultAsync } from "neverthrow";
 import { AppError } from "@termux-bridge/error";
-import { z } from "zod";
+import z from "zod";
 import { execFileAsync } from "@/lib/utils";
 
 export namespace Notification {

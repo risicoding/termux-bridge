@@ -1,7 +1,7 @@
 import { execFileAsync } from "@/lib/utils";
 import { AppError } from "@termux-bridge/error";
 import { Result, ResultAsync } from "neverthrow";
-import { z } from "zod";
+import z from "zod";
 
 export namespace CallLog {
   export const CallLogSchema = z.object({
