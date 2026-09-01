@@ -68,7 +68,8 @@ describe("Notification integration", () => {
     }
 
     const notification = listResult.value.find(
-      (notification) => notification.id === id && notification.title === title,
+      (notification) =>
+        Number(notification.tag) === id && notification.title === title,
     );
 
     expect(notification).toBeDefined();
