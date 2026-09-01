@@ -59,6 +59,7 @@ describe("Notification integration", () => {
 
     expect(createResult.isOk()).toBe(true);
 
+    await new Promise((res) => setTimeout(res, 500));
     const listResult = await Notification.list();
 
     expect(listResult.isOk()).toBe(true);
@@ -75,5 +76,5 @@ describe("Notification integration", () => {
     expect(notification).toBeDefined();
     expect(notification?.content).toBe(content);
     expect(notification?.when).toBeInstanceOf(Date);
-  });
+  }, 2000);
 });
