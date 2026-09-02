@@ -34,13 +34,13 @@ jobs:
         run: |
           case "$RELEASE_TAG" in
             core-v*)
-              echo "PACKAGE=core" >> "$GITHUB_ENV"
+              echo "PACKAGE=packages/core" >> "$GITHUB_ENV"
               ;;
             server-v*)
-              echo "PACKAGE=server" >> "$GITHUB_ENV"
+              echo "PACKAGE=apps/server" >> "$GITHUB_ENV"
               ;;
             api-v*)
-              echo "PACKAGE=api" >> "$GITHUB_ENV"
+              echo "PACKAGE=packages/api" >> "$GITHUB_ENV"
               ;;
             *)
               echo "Invalid release tag: $RELEASE_TAG"
@@ -50,7 +50,7 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -63,7 +63,7 @@ jobs:
       - name: Verify version
         run: |
           VERSION="${RELEASE_TAG#*-v}"
-          PACKAGE_VERSION=$(node -p "require('./packages/$PACKAGE/package.json').version")
+          PACKAGE_VERSION=$(node -p "require('./$PACKAGE/package.json').version")
 
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
