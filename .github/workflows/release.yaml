@@ -34,13 +34,16 @@ jobs:
         run: |
           case "$RELEASE_TAG" in
             core-v*)
-              echo "PACKAGE=packages/core" >> "$GITHUB_ENV"
+              echo "PACKAGE=core" >> "$GITHUB_ENV"
+              echo "PACKAGE_DIR=packages/core" >> "$GITHUB_ENV"
               ;;
             server-v*)
-              echo "PACKAGE=apps/server" >> "$GITHUB_ENV"
+              echo "PACKAGE=server" >> "$GITHUB_ENV"
+              echo "PACKAGE_DIR=apps/server" >> "$GITHUB_ENV"
               ;;
             api-v*)
-              echo "PACKAGE=packages/api" >> "$GITHUB_ENV"
+              echo "PACKAGE=api" >> "$GITHUB_ENV"
+              echo "PACKAGE_DIR=packages/api" >> "$GITHUB_ENV"
               ;;
             *)
               echo "Invalid release tag: $RELEASE_TAG"
@@ -63,7 +66,7 @@ jobs:
       - name: Verify version
         run: |
           VERSION="${RELEASE_TAG#*-v}"
-          PACKAGE_VERSION=$(node -p "require('./$PACKAGE/package.json').version")
+          PACKAGE_VERSION=$(node -p "require('./$PACKAGE_DIR/package.json').version")
 
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
@@ -82,7 +85,9 @@ jobs:
 
       - name: Pack
         run: |
-          pnpm --filter "@termux-bridge/$PACKAGE" pack --pack-destination ./release
+          mkdir -p release
+          pnpm --filter "@termux-bridge/$PACKAGE" pack \
+            --pack-destination ./release
 
       - name: Show package
         run: |
