@@ -1,0 +1,20 @@
+{
+  "name": "@termux-bridge/server",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "rspack build"
+  },
+  "files": [
+    "build"
+  ],
+  "devDependencies": {
+    "@hono/node-server": "^2.1.1",
+    "@termux-bridge/core": "workspace:*",
+    "@termux-bridge/error": "workspace:*",
+    "@termux-bridge/logger": "workspace:*",
+    "@termux-bridge/typescript-config": "workspace:*",
+    "commander": "^15.0.0",
+    "hono": "^4.13.5"
+  }
+}

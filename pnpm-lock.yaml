@@ -44,6 +44,9 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.1
         version: 2.1.1(hono@4.13.5)
+      '@termux-bridge/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@termux-bridge/error':
         specifier: workspace:*
         version: link:../../packages/error

@@ -13,7 +13,7 @@ export namespace Battery {
     current: z.number(),
     voltage: z.number(),
     technology: z.string(),
-    cycle_count: z.number(),
+    cycle_count: z.number().optional(),
   });
 
   export type BatteryStatus = z.infer<typeof BatteryStatusSchema>;
