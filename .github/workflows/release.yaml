@@ -63,12 +63,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Debug workspace
-        run: |
-          pnpm --filter "@termux-bridge/server" exec pwd
-          pnpm --filter "@termux-bridge/server" exec ls -la node_modules/@termux-bridge
-          pnpm --filter "@termux-bridge/server" exec ls -la node_modules/@termux-bridge/core
-
       - name: Verify version
         run: |
           VERSION="${RELEASE_TAG#*-v}"
@@ -85,6 +79,10 @@ jobs:
 
       - name: Test
         run: pnpm --filter "@termux-bridge/$PACKAGE" test
+
+      - name: Build core
+        if: env.PACKAGE != 'core'
+        run: pnpm --filter "@termux-bridge/core" build
 
       - name: Build
         run: pnpm --filter "@termux-bridge/$PACKAGE" build
