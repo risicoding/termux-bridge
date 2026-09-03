@@ -63,6 +63,28 @@ importers:
         specifier: ^4.13.5
         version: 4.13.5
 
+  packages/api:
+    dependencies:
+      ky:
+        specifier: ^2.1.0
+        version: 2.1.0
+    devDependencies:
+      '@termux-bridge/core':
+        specifier: workspace:*
+        version: link:../core
+      '@termux-bridge/error':
+        specifier: workspace:*
+        version: link:../error
+      '@termux-bridge/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.26)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.9.0
+        version: 5.9.3
+
   packages/core:
     devDependencies:
       '@termux-bridge/error':
@@ -1062,6 +1084,10 @@ packages:
 
   kuler@2.0.0:
     resolution: {integrity: sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A==}
+
+  ky@2.1.0:
+    resolution: {integrity: sha512-nIKwelw+7qVqKOlX4Eht6GXfEXlDHcdIjyLWV3s119kYt5s+70ayTnYS+0fRNmtgGRRAfqdeWQbh8YizqkS0ng==}
+    engines: {node: '>=22'}
 
   launch-editor@2.14.1:
     resolution: {integrity: sha512-QWBrQsMpH7gPr965dsKD/3cKWiNoTjpATQf++Xq63N6sKRGMwlVXz41O1IZTMfZQgBctD/K5Zt06+/I6pP6+HA==}
@@ -2214,6 +2240,8 @@ snapshots:
   jsonc-parser@3.3.1: {}
 
   kuler@2.0.0: {}
+
+  ky@2.1.0: {}
 
   launch-editor@2.14.1:
     dependencies:

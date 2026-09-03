@@ -1,16 +1,13 @@
 {
-  "name": "@termux-bridge/core",
+  "name": "@termux-bridge/api",
   "version": "0.1.1",
-  "description": "Core APIs for interacting with Termux through Termux API",
+  "description": "Core API abstractions for interacting with @termux-bridge/server",
   "type": "module",
   "license": "MIT",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./types": {
-      "types": "./dist/index.d.ts"
     }
   },
   "files": [
@@ -21,9 +18,13 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@termux-bridge/core": "workspace:*",
     "@termux-bridge/error": "workspace:*",
     "@termux-bridge/typescript-config": "workspace:*",
     "tsup": "^8.5.1",
     "typescript": "^5.9.0"
+  },
+  "dependencies": {
+    "ky": "^2.1.0"
   }
 }

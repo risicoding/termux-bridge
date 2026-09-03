@@ -1,6 +1,7 @@
 node_modules
 build
 .logs
-temp
+.temp
 .env
 dist
+release/

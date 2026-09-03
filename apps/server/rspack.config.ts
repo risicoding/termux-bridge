@@ -13,7 +13,7 @@ export default {
 
   output: {
     filename: "[name].js",
-    path: new URL("./build", import.meta.url).pathname,
+    path: new URL("./dist", import.meta.url).pathname,
     module: true,
     library: {
       type: "module",
