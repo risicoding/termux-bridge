@@ -6,7 +6,7 @@ const myFormat = printf(({ level, message, label, timestamp, ...meta }) => {
   return `${timestamp}${label ? ` ${label}` : ""} [${level}]: ${typeof message === "object" ? `\n${JSON.stringify(message, null, 2)}` : message}${Object.keys(meta).length ? `\n${JSON.stringify(meta, null, 2)}` : ""}`;
 });
 
-const LOG_DIR = envPaths("hinata").log;
+const LOG_DIR = envPaths("termux-bridge").log;
 export const logger = createLogger({
   format: combine(
     format.colorize(),
