@@ -1,15 +1,13 @@
 import { ResultAsync } from "neverthrow";
-import * as CoreModules from "@termux-bridge/core";
+import {
+  BatteryStatusSchema,
+  ClipboardSchema,
+  CallLogListSchema,
+  NotificationListSchema,
+  SmsListSchema,
+} from "@termux-bridge/core/schema";
 import { AppError } from "@termux-bridge/error";
 import ky, { type KyInstance } from "ky";
-
-// import {
-//   Battery,
-//   type Notification,
-//   type CallLog,
-//   type Sms,
-//   type Clipboard,
-// } from "@termux-bridge/core/types";
 
 const createKy = (ip: string, port = 6734) =>
   ky.create({
@@ -22,23 +20,19 @@ const createKy = (ip: string, port = 6734) =>
 
 const apiMethods = (api: KyInstance) => ({
   battery: {
-    status: () =>
-      api.get("battery").json(CoreModules.Battery.BatteryStatusSchema),
+    status: () => api.get("battery").json(BatteryStatusSchema),
   },
   clipboard: {
-    get: () => api.get("clipboard").json(CoreModules.Clipboard.ClipboardSchema),
+    get: () => api.get("clipboard").json(ClipboardSchema),
   },
   sms: {
-    get: () => api.get("sms").json(CoreModules.Sms.SmsListSchema),
+    get: () => api.get("sms").json(SmsListSchema),
   },
   callLog: {
-    get: () => api.get("call").json(CoreModules.CallLog.CallLogListSchema),
+    get: () => api.get("call").json(CallLogListSchema),
   },
   notification: {
-    list: () =>
-      api
-        .get("notification/list")
-        .json(CoreModules.Notification.NotificationListSchema),
+    list: () => api.get("notification/list").json(NotificationListSchema),
   },
 });
 
