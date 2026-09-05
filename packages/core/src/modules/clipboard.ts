@@ -1,10 +1,11 @@
 import { execFileAsync } from "@/lib/utils";
 import { AppError } from "@termux-bridge/error";
 import { Result, ResultAsync } from "neverthrow";
+import { ClipboardSchema as ClipboardSchemaImport } from "@/schema";
 import z from "zod";
 
 export namespace Clipboard {
-  export const ClipboardSchema = z.string();
+  export const ClipboardSchema = ClipboardSchemaImport;
   export type Clipboard = z.infer<typeof ClipboardSchema>;
 
   export class ClipboardError extends AppError {

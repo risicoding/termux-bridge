@@ -2,33 +2,14 @@ import { Result, ResultAsync } from "neverthrow";
 import z from "zod";
 import { AppError } from "@termux-bridge/error";
 import { execFileAsync } from "@/lib/utils";
+import {
+  SmsSchema as SmsSchemaImport,
+  SmsListSchema as SmsListSchemaImport,
+} from "@/schema";
 
 export namespace Sms {
-  export const SmsSchema = z.object({
-    threadid: z.number(),
-    type: z.string(),
-    read: z.boolean(),
-    address: z.string(),
-    number: z.string(),
-    received: z.string().transform((value, ctx) => {
-      const date = new Date(value.replace(" ", "T"));
-
-      if (Number.isNaN(date.getTime())) {
-        ctx.addIssue({
-          code: "custom",
-          message: "Invalid date",
-        });
-
-        return z.NEVER;
-      }
-
-      return date;
-    }),
-    body: z.string(),
-    _id: z.number(),
-  });
-
-  export const SmsListSchema = z.array(SmsSchema);
+  export const SmsSchema = SmsSchemaImport;
+  export const SmsListSchema = SmsListSchemaImport;
 
   export type Sms = z.infer<typeof SmsSchema>;
 

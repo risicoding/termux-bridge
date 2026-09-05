@@ -64,10 +64,6 @@ importers:
         version: 4.13.5
 
   packages/api:
-    dependencies:
-      ky:
-        specifier: ^2.1.0
-        version: 2.1.0
     devDependencies:
       '@termux-bridge/core':
         specifier: workspace:*
@@ -78,6 +74,9 @@ importers:
       '@termux-bridge/typescript-config':
         specifier: workspace:*
         version: link:../typescript
+      ky:
+        specifier: ^2.1.0
+        version: 2.1.0
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(postcss@8.5.26)(typescript@5.9.3)(yaml@2.9.0)

@@ -1,16 +1,34 @@
 {
   "name": "@termux-bridge/core",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Core APIs for interacting with Termux through Termux API",
   "type": "module",
   "license": "MIT",
+  "main": "./dist/index.cjs",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./types": {
-      "types": "./dist/index.d.ts"
+      "types": {
+        "import": "./dist/types.d.ts",
+        "require": "./dist/types.d.cts"
+      },
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs"
+    },
+    "./schema": {
+      "types": {
+        "import": "./dist/schema.d.ts",
+        "require": "./dist/schema.d.cts"
+      },
+      "import": "./dist/schema.js",
+      "require": "./dist/schema.cjs"
     }
   },
   "files": [

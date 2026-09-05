@@ -2,20 +2,10 @@ import { Result, ResultAsync } from "neverthrow";
 import { AppError } from "@termux-bridge/error";
 import { execFileAsync } from "@/lib/utils";
 import z from "zod";
+import { BatteryStatusSchema as Schema } from "@/schema";
 
 export namespace Battery {
-  export const BatteryStatusSchema = z.object({
-    health: z.string(),
-    percentage: z.number(),
-    plugged: z.string(),
-    status: z.enum(["CHARGING", "DISCHARGING"]),
-    temperature: z.number(),
-    current: z.number(),
-    voltage: z.number(),
-    technology: z.string(),
-    cycle_count: z.number().optional(),
-  });
-
+  export const BatteryStatusSchema = Schema;
   export type BatteryStatus = z.infer<typeof BatteryStatusSchema>;
 
   export class BatteryError extends AppError {
